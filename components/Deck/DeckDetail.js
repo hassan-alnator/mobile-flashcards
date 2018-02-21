@@ -1,10 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-
-function mapStateTopProps({decks}) {
-    return {decks}
-}
 
 class DeckDetail extends React.PureComponent {
 
@@ -107,4 +104,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(mapStateTopProps)(DeckDetail);
+export default connect(({decks}) => ({decks}))(DeckDetail);

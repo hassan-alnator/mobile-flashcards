@@ -1,15 +1,13 @@
 import Decks from './Decks';
 import {connect} from 'react-redux'
 
-function mapStateToProps({
+const mapStateToProps = ({
     decks,
     app
-}, ownProps) {
-    return {
-        decks,
-        isLoading: app.isLoading,
-        ...ownProps
-    }
-}
+}, ownProps) => ({
+    decks,
+    isLoading: app.isLoading,
+    ...ownProps
+})
 
 export default connect(mapStateToProps)(Decks)

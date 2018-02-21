@@ -42,15 +42,18 @@ class Decks extends React.Component {
             });
 
         return list
+
     }
 
     render() {
 
         const {decks, isLoading} = this.props;
 
+        // if app is still loading
         if (isLoading) 
             return <Loading/>
 
+            // if there is no decks
         if (Object.keys(decks).length === 0) {
             return (
                 <View style={styles.container}>
@@ -61,6 +64,7 @@ class Decks extends React.Component {
             )
         }
 
+        // if the app is not loading and we have decks to display
         return (
             <View style={styles.container}>
                 <FlatList data={this.reformatToList(decks)} renderItem={this.renderDecks}/>

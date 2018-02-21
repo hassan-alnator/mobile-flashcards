@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 const Deck = ({id, title, questions, navigation}) => (
@@ -36,5 +37,12 @@ const styles = StyleSheet.create({
     }
 
 })
+
+Deck.propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    questions: PropTypes.array.isRequired,
+    navigation: PropTypes.object.isRequired
+}
 
 export default Deck;

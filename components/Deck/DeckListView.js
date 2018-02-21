@@ -11,7 +11,6 @@ import Quiz from '../Quiz/Quiz'
 // Main Tabs Of Main Decks Component
 const Tabs = TabNavigator({
     Decks: {
-        name: "decks",
         screen: DecksContainer,
         navigationOptions: {
             tabBarLabel: "Decks"

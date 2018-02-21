@@ -1,20 +1,27 @@
 import React, {AsyncStorage} from 'react-native';
 import Promise from 'bluebird'
 
-//AsyncStorage.clear()
-
-export const setDecks = (decks) => {
-
+/**
+ * reset decks list to localStorage
+ *
+ * @param {Object} decks
+ * @returns
+ */
+const setDecks = (decks) => {
     try {
         AsyncStorage.setItem('flashCardsStoreDecks', JSON.stringify(decks));
 
     } catch (error) {}
 
     return decks
-
 }
 
-export async function getDecks() {
+/**
+ * retrive list of decks from localStorage
+ *
+ * @returns
+ */
+export const getDecks = async() => {
 
     try {
         const value = await AsyncStorage.getItem('flashCardsStoreDecks');
@@ -29,34 +36,38 @@ export async function getDecks() {
     return {}
 }
 
-const getDeck = async(title) => {
+/**
+ * add a new deck to the decks list and then save
+ *
+ * @param {Object} deck
+ */
+export const saveDeckTitle = async(deck) => {
+
     try {
+        getDecks().then(decks => {
 
-        const decks = await getDecks();
+            const decksList = {
+                ...decks
+            }
 
-        if (decks.hasOwnProperty(title)) {
-            return decks[title]
-        }
+            decksList[deck.title] = deck;
 
-        return false;
+            setDecks(decksList)
 
-    } catch (error) {
-        return false
+        }).catch(e => console.log(e))
+    } catch (e) {
+        console.log(e)
     }
-}
-
-export async function saveDeckTitle(deck) {
-
-    getDecks().then(decks => {
-
-        const decksList = decks
-        decksList[deck.title] = deck;
-        setDecks(decksList)
-
-    }).catch(e => console.log(e))
 
 }
 
+/**
+ * add a new card to a deck
+ *
+ * @param {String} title
+ * @param {Object} card
+ * @returns
+ */
 export const addCardToDeck = async(title, card) => {
     try {
         const decks = await getDecks();
@@ -69,5 +80,8 @@ export const addCardToDeck = async(title, card) => {
 
         return decks
 
-    } catch (e) {}
+    } catch (e) {
+        return false
+    }
+    return false
 }
