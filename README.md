@@ -1,4 +1,4 @@
-#React Native Flashcards App
+# React Native Flashcards App
 
 ### Installation
 
