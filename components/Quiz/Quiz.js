@@ -1,7 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
-
+import {Notifications} from 'expo'
 import {Ionicons} from '@expo/vector-icons';
+
+import {setLocalNotification} from '../../utils/notification'
 
 class Quiz extends React.PureComponent {
 
@@ -17,6 +19,26 @@ class Quiz extends React.PureComponent {
         correct: 0,
         incorrect: 0,
         completed: false
+    }
+
+    resetNotifications = () => {
+        // clear notifications for today and set for tomorrow
+        Notifications.cancelAllScheduledNotificationsAsync()
+        setLocalNotification("tommorrow")
+    }
+
+    restartQuiz = () => {
+
+        this.resetNotifications()
+
+        this.setState({
+            activeCard: false,
+            activeIndex: 0,
+            cardSide: "question",
+            correct: 0,
+            incorrect: 0,
+            completed: false
+        })
     }
 
     nextCard = () => {
@@ -46,6 +68,14 @@ class Quiz extends React.PureComponent {
         this.nextCard()
     }
 
+    goBack = () => {
+        this.resetNotifications()
+        this
+            .props
+            .navigation
+            .goBack()
+    }
+
     render() {
         const {params} = this.props.navigation.state;
 
@@ -67,8 +97,12 @@ class Quiz extends React.PureComponent {
                     <Text>Correct Rate is : {100 / ((this.state.correct + this.state.incorrect) / this.state.correct)}
                         %</Text>
 
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <Text style={styles.flipperText}>Retake Quiz</Text>
+                    <TouchableOpacity onPress={() => this.restartQuiz()}>
+                        <Text style={styles.flipperText}>Restart Quiz</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => this.goBack()}>
+                        <Text style={styles.flipperText}>Back to Deck</Text>
                     </TouchableOpacity>
                 </View>
             )

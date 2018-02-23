@@ -4,8 +4,13 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk'
 import {View, Text, StyleSheet} from 'react-native';
 
+import {setLocalNotification} from './utils/notification'
+
 import rootReducer from './reducers'
 import DeckListView from './components/Deck/DeckListView'
+
+// set main notification
+setLocalNotification()
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 

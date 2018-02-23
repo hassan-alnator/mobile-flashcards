@@ -16,19 +16,21 @@ class NewDeck extends React.Component {
 
     submitTitle = () => {
 
+        const {title} = this.state
+
         // add the new deck
         this
             .props
-            .dispatch(addDeck(this.state.title))
+            .dispatch(addDeck(title))
 
         // clear deck title
         this.setState({title: ""});
 
-        // navigate back to decks
+        // navigate to deck details
         this
             .props
             .navigation
-            .navigate('Decks')
+            .navigate("DecksDetail", {title})
     }
 
     render() {

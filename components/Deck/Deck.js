@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 const Deck = ({id, title, questions, navigation}) => (
-    <TouchableOpacity
-        onPress=
-        {() => navigation.navigate("DecksDetail", {id, title, questions})}>
+    <TouchableOpacity onPress= {() => navigation.navigate("DecksDetail", { title})}>
 
         <View style={styles.container}>
             <Text style={styles.deck}>{title}</Text>
